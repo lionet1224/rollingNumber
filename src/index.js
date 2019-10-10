@@ -2,8 +2,9 @@ export default class Rolling {
   constructor(opt, callBack) {
     this.WrapperBoxes = opt.el;
     this.CallBackFuntion = callBack;
-    this.TargetNumber = this.$ConvertDigital(opt.target);
-    this.TargetLength = String(this.TargetNumber).length; // 目标数的位数
+    this.SingleChange = opt.singleChange || false;  // 整体一起滚动还是只滚动变化的值
+    this.TargetNumber = this.$ConvertDigital(opt.target); // 把滚动的数字放在哪个元素内
+    this.TargetLength = String(this.TargetNumber).length; // 最终需要滚动的值的位数
     this.AnimationDelay = opt.delay !== undefined ? opt.delay : 300;  // 延时多久执行回调函数
     this.AnimationDuration = opt.duration !== undefined ? opt.duration : 2000; // 动画持续时间
     this.AnimationDirection = opt.direction !== undefined ? opt.direction : 'random'; // 数字滚动的形式
@@ -81,21 +82,9 @@ export default class Rolling {
 
   // 开始滚动动画
   startAnimation(newNumber) {
-    let componentList = this.$SelectElement('span.rolling-number'),
-      currentElementList = componentList.length,
-      componentItem = null, // 缓存的元素
-      randomNumber = 0;
+    let componentList = this.$SelectElement('span.rolling-number');
 
-    // 开始轮播动画
-    this.interTimer = setInterval(() => {
-      for (let i = 0; i < currentElementList; i++) {
-
-        componentItem = componentList[i].style;
-        randomNumber = this.$RollingMethods(this.AnimationDirection);
-
-        componentItem.cssText = `background-position: 0 ${randomNumber * -30}px;`;
-      }
-    }, 100);
+    this.$SingleNumberRolling(componentList, newNumber);
 
     // 多长时间以后停止动画
     this.timeoutTimer = setTimeout(() => {
@@ -126,6 +115,35 @@ export default class Rolling {
 
       this.CallBackFuntion(PARAMS);
     }, this.AnimationDelay);
+  }
+
+  // 只滚动变化的值还是整个滚动
+  $SingleNumberRolling(nodesArray, newNumber){
+    let currentElementList = nodesArray.length,
+      componentItem = null, // 缓存的元素
+      randomNumber = 0,
+      newNumberCopy = newNumber,
+      targetNumberCopy = this.TargetNumber;
+
+    // 开始轮播动画
+    this.interTimer = setInterval(() => {
+      // 如果两个值相等 那么视为开始的时候没有传参 或者是整体滚动还是单个滚动
+      if(newNumberCopy === targetNumberCopy || !this.SingleChange){
+        for (let i = 0; i < currentElementList; i++) {
+          componentItem = nodesArray[i].style;
+          randomNumber = this.$RollingMethods(this.AnimationDirection);
+          componentItem.cssText = `background-position: 0 ${randomNumber * -30}px;`;
+        }
+      }else{
+        for (let i = 0; i < currentElementList; i++) {
+          if(newNumberCopy[i] !== targetNumberCopy[i]){
+            componentItem = nodesArray[i].style;
+            randomNumber = this.$RollingMethods(this.AnimationDirection);
+            componentItem.cssText = `background-position: 0 ${randomNumber * -30}px;`;
+          }
+        }
+      }
+    }, 100);
   }
 
   // 返回选择的元素
