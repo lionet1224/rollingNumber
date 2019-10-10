@@ -8,12 +8,12 @@
  
  
  
-```javascript
+```html
   <div class="wrapper"></div>
   <script src="./index.js"></script>
 ```
 
-```
+```javascript
   import Rolling from './index.js';
 
   let rolling = new Rolling({
