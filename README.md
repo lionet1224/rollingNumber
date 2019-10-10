@@ -1,7 +1,7 @@
 # rolling-number
 一个上下滚动的数字插件
 
-```
+```javascript
   <div class="wrapper"></div>
   <script src="./index.js"></script>
   
