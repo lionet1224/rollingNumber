@@ -15,6 +15,7 @@ export default class Rolling {
       TargetNumberEmpty: '请输入目标数字，如果不确定，可传入与结果位数相同的字符串！',
       TargetNumberInvalid: '请输入合法的值，允许传入的值为 {String}[0-9] 暂不支持小数！',
     };
+    this.IMGNUMBERCOUNT = 9;
 
     // 自定义变量
     this.defaultBaseNumber = 0;
@@ -145,9 +146,9 @@ export default class Rolling {
       case 'down':
         return this.$RestoreNumbers('down');
       case 'random':
-        return Math.floor(Math.random() * 9);
+        return Math.floor(Math.random() * this.IMGNUMBERCOUNT);
       default:
-        return Math.floor(Math.random() * 9);
+        return Math.floor(Math.random() * this.IMGNUMBERCOUNT);
     }
   }
 
@@ -162,9 +163,9 @@ export default class Rolling {
   // 如果超过上限则恢复为上限值
   $RestoreNumbers(type) {
     if (type === 'up') {
-      return this.defaultBaseNumber > 9 ? this.defaultBaseNumber = 0 : this.defaultBaseNumber++;
+      return this.defaultBaseNumber > this.IMGNUMBERCOUNT ? this.defaultBaseNumber = 0 : this.defaultBaseNumber++;
     } else if (type === 'down') {
-      return this.defaultBaseNumber < 0 ? this.defaultBaseNumber = 9 : this.defaultBaseNumber--;
+      return this.defaultBaseNumber < 0 ? this.defaultBaseNumber = this.IMGNUMBERCOUNT : this.defaultBaseNumber--;
     }
   }
 
