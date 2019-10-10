@@ -1,5 +1,5 @@
 # rolling-number
-一个上下滚动的数字插件
+一个上下滚动的数字插件 (可用作数据流量展示、或者数字滚动抽奖)
 
 ```javascript
   <div class="wrapper"></div>
@@ -16,3 +16,7 @@
     console.log(nums);
   });
 ```
+
+## 可通过 rolling.start() 来执行动画滚动
+## 在调用方法时可传入想要滚动到的数字
+## 目前暂不支持小数滚动 只支持 [0-9]
