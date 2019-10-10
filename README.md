@@ -5,9 +5,6 @@
 #### 在调用方法时可传入想要滚动到的数字
 #### 目前暂不支持小数滚动 只支持 [0-9]
  
- 
- 
- 
 ```html
   <div class="wrapper"></div>
   <script src="./index.js"></script>
@@ -29,3 +26,4 @@
 
   rolling.start(456789); // 调用 可传参
 ```
+#### 想立即执行可以在实例化后直接调用方法 new Rolling({ ... }).start(); 
