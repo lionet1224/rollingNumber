@@ -14,9 +14,9 @@ export default class Rolling {
 
     this.options = {
       IMG_NUMBER_COUNT: 11, // 一共有多少个滚动的数字
-      FONT_SIZE_AND_HEIGHT: Rolling._parseTargetNumber(opt.size, '16'), // 滚动框显示多大
       MOUNTED_WRAPPER: Rolling._findTargetElement(opt.el), // 目标挂载元素
       TARGET_NUMBER: Rolling._parseTargetNumber(opt.target),  // 最后需要滚动到的元素
+      FONT_SIZE_AND_HEIGHT: Rolling._parseTargetNumber(opt.size, '16'), // 滚动框显示多大
       ANIMATION_DURATION: +Rolling._parseTargetNumber(opt.duration, 2000) // 动画持续时间
     }
 
@@ -29,6 +29,7 @@ export default class Rolling {
   // 初始化插件配置
   static initPluginOptions(options) {
     const { FONT_SIZE_AND_HEIGHT, TARGET_NUMBER, MOUNTED_WRAPPER } = options
+
     MOUNTED_WRAPPER.classList.add('rolling-number'); // 添加组件特有类名
     MOUNTED_WRAPPER.style.fontSize = FONT_SIZE_AND_HEIGHT + 'px'; // 设置显示的基准值
 
@@ -125,7 +126,7 @@ export default class Rolling {
     const TYPE = typeof element
 
     if (TYPE === 'string') {
-      return document.querySelectorAll(element)
+      return document.querySelector(element)
     } else if (TYPE === 'object') {
       if (
         element !== null &&
