@@ -1,0 +1,18 @@
+.rolling-number {
+  height: 1em;
+  line-height: 1em;
+  letter-spacing: -5px;
+  overflow: hidden !important;
+}
+
+.rolling-number__item {
+  display: inline-block;
+  width: calc(1em * .55);
+  height: 100%;
+  text-align: center;
+  transition: transform .1s linear;
+}
+
+.rolling-number__item span{
+  display: block;
+}

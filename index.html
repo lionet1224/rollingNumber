@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="./src/index.css">
+  <title>数字滚动插件</title>
+</head>
+
+<body>
+  <div class="wrapper1"></div>
+  <div class="wrapper2"></div>
+
+  <script type="module">
+    import Rolling from './src/index.js';
+
+    let rolling1 = new Rolling({
+      el: document.querySelector('.wrapper1'), // 存放滚动数字的盒子
+      size: '30', // 文字大小及高度
+      target: '11111',  // 最终数字滚动到的数字 超过16位请使用字符串形式传入
+      duration: 1000, // 滚动动画持续滚动多久 默认 2000 毫秒
+    });
+
+    rolling1.start('123.789').then(res => {
+      console.log(res)
+    }); // 调用 可传入新的数字 且可以在每次结束后执行回调
+
+    let rolling2 = new Rolling({
+      el: document.querySelector('.wrapper2'), // 存放滚动数字的盒子
+      size: '30', // 文字大小及高度
+      target: '22222',  // 最终数字滚动到的数字 超过16位请使用字符串形式传入
+      duration: 1000, // 滚动动画持续滚动多久 默认 2000 毫秒
+    });
+
+    rolling2.start('123.123').then(res => {
+      console.log(res)
+    }); // 调用 可传入新的数字 且可以在每次结束后执行回调
+  </script>
+</body>
+
+</html>
